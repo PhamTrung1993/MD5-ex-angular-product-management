@@ -9,17 +9,19 @@ import { ProductEditComponent } from './product/product-edit/product-edit.compon
 import { ProductDeleteComponent } from './product/product-delete/product-delete.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import { CategoryListComponent } from './category/category-list/category-list.component';
+import {SharedModule} from "./shared/shared.module";
 
 @NgModule({
   declarations: [
     AppComponent,
 
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        ReactiveFormsModule
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    SharedModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })
