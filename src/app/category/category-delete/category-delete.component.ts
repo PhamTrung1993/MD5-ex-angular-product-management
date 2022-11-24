@@ -18,16 +18,9 @@ export class CategoryDeleteComponent {
               private router: Router,
               private activatedRoute: ActivatedRoute) {
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
-
       // @ts-ignore
       this.id = +paramMap.get('id');
-      const category = this.getCategory(this.id);
-      this.categoryForm = new FormGroup({
-        // @ts-ignore
-        id: new FormControl(category.id),
-        // @ts-ignore
-        name: new FormControl(category.name),
-      });
+      this.getCategory(this.id);
     });
   }
 
@@ -35,11 +28,18 @@ export class CategoryDeleteComponent {
   }
 
   getCategory(id: number) {
-    return this.categoryService.findById(id);
+    return this.categoryService.findById(id).subscribe(category => {
+      this.categoryForm = new FormGroup({
+        categoryName: new FormControl(category.categoryName),
+      });
+    });
   }
 
   deleteCategory(id: number) {
-    this.categoryService.deleteCategory(id);
-    this.router.navigate(['/category/list']);
+    this.categoryService.deleteCategory(id).subscribe(() => {
+      this.router.navigate(['/category/list']);
+    }, e => {
+      console.log(e);
+    });
   }
 }
